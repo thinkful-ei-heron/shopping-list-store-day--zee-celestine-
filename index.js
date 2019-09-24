@@ -16,12 +16,12 @@ const generateItemElement = function(item) {
      <span class='shopping-item'>${item.name}</span>
     `;
   }
-  // if (item.edit) {
-  //   itemTitle = `<span class='shopping-item shopping-item__checked'>${item.editTitle}</span>`;
-  //   if (!item.checked) {
-  //     itemTitle = `<span class='shopping-item'>${item.editTitle}</span>`;
-  //   }
-  // }
+  if (item.edit) {
+    itemTitle = `<span class='shopping-item shopping-item__checked'>${item.editTitle}</span>`;
+    if (!item.checked) {
+      itemTitle = `<span class='shopping-item'>${item.editTitle}</span>`;
+    }
+  }
 
   return `
     <li class='js-item-element' data-item-id='${item.id}'>
@@ -32,6 +32,9 @@ const generateItemElement = function(item) {
         </button>
         <button class='shopping-item-delete js-item-delete'>
           <span class='button-label'>delete</span>
+        </button>
+        <button class='shopping-item-edit js-shopping-item-edit'>
+          <span class='button-label'>edit</span>
         </button>
       </div>
     </li>`;
@@ -158,13 +161,14 @@ const handleToggleFilterClick = function() {
   });
 };
 
-function newTitle(editTitle, edit) {
-  let 
-  for ( editTitle of items.store) {
-    console.log(editTitle);
-  }
-  render();
-}
+// function newTitle(editTitle, edit) {
+//   let
+//   for ( editTitle of items.store) {
+//     //need input type='text' button='edit'
+//     console.log(editTitle);
+//   }
+//   render();
+// }
 /**
  * This function will be our callback when the
  * page loads. It is responsible for initially
