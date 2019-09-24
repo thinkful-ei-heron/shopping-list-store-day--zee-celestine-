@@ -16,6 +16,12 @@ const generateItemElement = function(item) {
      <span class='shopping-item'>${item.name}</span>
     `;
   }
+  // if (item.edit) {
+  //   itemTitle = `<span class='shopping-item shopping-item__checked'>${item.editTitle}</span>`;
+  //   if (!item.checked) {
+  //     itemTitle = `<span class='shopping-item'>${item.editTitle}</span>`;
+  //   }
+  // }
 
   return `
     <li class='js-item-element' data-item-id='${item.id}'>
@@ -64,7 +70,13 @@ const render = function() {
 };
 
 const addItemToShoppingList = function(itemName) {
-  store.items.push({ id: cuid(), name: itemName, checked: false });
+  store.items.push({
+    id: cuid(),
+    name: itemName,
+    checked: false,
+    editTitle: '',
+    edit: false
+  });
 };
 
 const handleNewItemSubmit = function() {
@@ -146,6 +158,13 @@ const handleToggleFilterClick = function() {
   });
 };
 
+function newTitle(editTitle, edit) {
+  let 
+  for ( editTitle of items.store) {
+    console.log(editTitle);
+  }
+  render();
+}
 /**
  * This function will be our callback when the
  * page loads. It is responsible for initially
