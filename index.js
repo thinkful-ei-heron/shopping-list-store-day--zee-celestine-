@@ -11,6 +11,10 @@ const store = {
 
 const generateItemElement = function(item) {
   let itemTitle = `<span class='shopping-item shopping-item__checked'>${item.name}</span>`;
+  let itemEdit = '';
+  if (item.edit) {
+    itemEdit += `<input type='text'/input>`;
+  }
   if (!item.checked) {
     itemTitle = `
      <span class='shopping-item'>${item.name}</span>
@@ -26,6 +30,7 @@ const generateItemElement = function(item) {
   return `
     <li class='js-item-element' data-item-id='${item.id}'>
       ${itemTitle}
+      ${itemEdit}
       <div class='shopping-item-controls'>
         <button class='shopping-item-toggle js-item-toggle'>
           <span class='button-label'>check</span>
@@ -33,8 +38,8 @@ const generateItemElement = function(item) {
         <button class='shopping-item-delete js-item-delete'>
           <span class='button-label'>delete</span>
         </button>
-        <button class='shopping-item-edit js-shopping-item-edit'>
-          <span class='button-label'>edit</span>
+        <button class='shopping-item-edit js-shopping-item-edit' key = '${item.id}'>
+          <span class='button-label' key = '${item.id}'>edit</span>
         </button>
       </div>
     </li>`;
@@ -161,14 +166,24 @@ const handleToggleFilterClick = function() {
   });
 };
 
-// function newTitle(editTitle, edit) {
-//   let
-//   for ( editTitle of items.store) {
-//     //need input type='text' button='edit'
-//     console.log(editTitle);
-//   }
-//   render();
-// }
+const editItem = function(id) {
+  //console.log(id);
+  for (let item of store.items) {
+    console.log(item);
+    if (item.id === id) {
+      item.edit = true;
+      console.log(item);
+    }
+  }
+};
+const editListenItem = function(id) {
+  $('.js-shopping-list').on('click', '.js-shopping-item-edit', event => {
+    event.preventDefault();
+    //console.log(event.target.getAttribute('key'));
+    editItem(event.target.getAttribute('key')); //can't access the label for the key
+    render();
+  });
+};
 /**
  * This function will be our callback when the
  * page loads. It is responsible for initially
@@ -184,6 +199,7 @@ const handleShoppingList = function() {
   handleItemCheckClicked();
   handleDeleteItemClicked();
   handleToggleFilterClick();
+  editListenItem();
 };
 
 // when the page loads, call `handleShoppingList`
