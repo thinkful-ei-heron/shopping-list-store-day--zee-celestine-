@@ -13,22 +13,22 @@ const generateItemElement = function(item) {
   let itemTitle = `<span class='shopping-item shopping-item__checked'>${item.name}</span>`;
   let itemEdit = '';
   if (item.edit) {
-    itemEdit += `<input type='text'/input>`;
+    itemEdit = `<input type='text'></input>
+    <button class='shopping-item-new js-shopping-item-new'>
+     <span class='button-label'>save</span>
+     </button>'`;
   }
   if (!item.checked) {
     itemTitle = `
      <span class='shopping-item'>${item.name}</span>
     `;
   }
-  if (item.edit) {
-    itemTitle = `<span class='shopping-item shopping-item__checked'>${item.editTitle}</span>`;
-    if (!item.checked) {
-      itemTitle = `<span class='shopping-item'>${item.editTitle}</span>`;
-    }
-    const commitEditButton = `<button class='shopping-item-new js-shopping-item-new'>
-      <span class='button-label'>save</span>
-      </button>`;
-  }
+  // if (item.edit) {
+  //   itemTitle = `<span class='shopping-item shopping-item__checked'>${item.editTitle}</span>`;
+  //   if (!item.checked) {
+  //     itemTitle = `<span class='shopping-item'>${item.editTitle}</span>`;
+  //   }
+  // const commitEditButton = ;
 
   return `
     <li class='js-item-element' data-item-id='${item.id}'>
@@ -172,23 +172,31 @@ const handleToggleFilterClick = function() {
 const editItem = function(id) {
   //console.log(id);
   for (let item of store.items) {
-    console.log(item);
     if (item.id === id) {
       item.edit = true;
-      console.log(item);
     }
-    editListItem(id);
-    //shopping-item-new();
   }
 };
-const shoppingItemNew = function(id) {
-  editListItem(id);
+
+//id and name passing into it
+//const removeShoppingItem = function(id) {
+//for (let item of store.items) {
+//  if (item.id === id) {
+//  item.name = '';
+//}
+//}
+
+const saveItemButton = function() {
+  $('.js-shopping-list').on('click', '.js-shopping-item-new', event => {
+    event.preventDefault();
+    editItem(event.target.getAttribute('key'));
+    console.log('saveItemButton');
+  });
 };
-const editListenItem = function(id) {
+const editListenItem = function() {
   $('.js-shopping-list').on('click', '.js-shopping-item-edit', event => {
     event.preventDefault();
-    //console.log(event.target.getAttribute('key'));
-    //editItem(event.target.getAttribute('key')); //can't access the label for the key
+    editItem(event.target.getAttribute('key'));
     //data-key=`'${item.id}`,
     render();
   });
@@ -209,6 +217,7 @@ const handleShoppingList = function() {
   handleDeleteItemClicked();
   handleToggleFilterClick();
   editListenItem();
+  saveItemButton();
 };
 
 // when the page loads, call `handleShoppingList`
