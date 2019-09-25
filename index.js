@@ -21,6 +21,9 @@ const generateItemElement = function(item) {
     `;
   }
   if (item.edit) {
+    `<button class='shopping-item-new js-shopping-item-new'>
+      <span class='button-label'>save</span>
+    </button>`;
     itemTitle = `<span class='shopping-item shopping-item__checked'>${item.editTitle}</span>`;
     if (!item.checked) {
       itemTitle = `<span class='shopping-item'>${item.editTitle}</span>`;
@@ -174,13 +177,19 @@ const editItem = function(id) {
       item.edit = true;
       console.log(item);
     }
+    editListItem(id);
+    //shopping-item-new();
   }
+};
+const shoppingItemNew = function(id) {
+  editListItem(id);
 };
 const editListenItem = function(id) {
   $('.js-shopping-list').on('click', '.js-shopping-item-edit', event => {
     event.preventDefault();
     //console.log(event.target.getAttribute('key'));
-    editItem(event.target.getAttribute('key')); //can't access the label for the key
+    //editItem(event.target.getAttribute('key')); //can't access the label for the key
+    //data-key=`'${item.id}`,
     render();
   });
 };
