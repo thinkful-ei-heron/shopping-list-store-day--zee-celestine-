@@ -21,13 +21,13 @@ const generateItemElement = function(item) {
     `;
   }
   if (item.edit) {
-    `<button class='shopping-item-new js-shopping-item-new'>
-      <span class='button-label'>save</span>
-    </button>`;
     itemTitle = `<span class='shopping-item shopping-item__checked'>${item.editTitle}</span>`;
     if (!item.checked) {
       itemTitle = `<span class='shopping-item'>${item.editTitle}</span>`;
     }
+    const commitEditButton = `<button class='shopping-item-new js-shopping-item-new'>
+      <span class='button-label'>save</span>
+      </button>`;
   }
 
   return `
